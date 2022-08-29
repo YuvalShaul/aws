@@ -1,2 +1,2 @@
-# tsofenaws
-Demo for Tsofen AWS (and other tools) course.
+# aws
+My main aws repository for examples, code labs etc.
