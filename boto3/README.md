@@ -17,3 +17,9 @@ The famous aws python sdk library.
 - Install:  
 **pip install boto3**
 
+## Creating a json credentials file
+
+- Use **cred.json** to be compatible with this repository
+- You can create this file by simply running:  
+**aws sts get-caller-identity** and embedding the output into the file.
+
