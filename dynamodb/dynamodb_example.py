@@ -34,8 +34,8 @@ def dynamodb_demo():
     client = boto3.client('dynamodb', aws_access_key_id=creds['access-key-id'],
                                       aws_secret_access_key=creds['secret-access-key'],
                                       region_name=creds['region'])
-    insert_into_people(client, 'Dave', "09-1234567")
-    insert_into_people(client, 'Aisha', "09-9876543", details={'address':{'S':'New-York'}, 'role':{'S':'student'}})
+    insert_into_people(client, 'Dave', "09-________")
+    insert_into_people(client, 'Aisha', "09-^^^^^^^^")
     
 
 dynamodb_demo()
