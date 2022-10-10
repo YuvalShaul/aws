@@ -12,6 +12,7 @@
 ## Availability Zones
 
 - [Good explanation](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.concept.az.en.html)
+- [AZ (server farms) locations](https://www.datacenters.com/amazon-aws-data-center-locations)
 
 
 ## Local Zones
