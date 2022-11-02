@@ -8,7 +8,7 @@ Parameters:
     Type: String
     Description: CIDR block for the VPC
     Default: 10.0.0.0/16
-    
+
   MyPrivateSubnetCIDR:
     Type: String
     Description: CIDR block for private subnet
@@ -17,6 +17,11 @@ Parameters:
     Type: String
     Description: CIDR block for the public subnet
     Default: 10.0.2.0/16
+
+  EnvironmentName:
+    Type: String
+    Default: prod
+    Description: Environment name to use as prefix for resource names and tags.
 
 Resources:
   MyVPC:
@@ -27,7 +32,7 @@ Resources:
       EnableDnsSupport: 'true'
       Tags:
       - Key: Name
-        Value: demo-vpc
+        Value: !Sub ${EnvironmentName}-demo-vpc
 
 
   MyInternetGateway:
@@ -57,9 +62,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
       - Key: Name
-        Value: my-public-subnet
-      - Key: Network
-        Value: Public
+        Value: !Sub ${EnvironmentName}-public-subnet
       VpcId: !Ref MyVPC
 
 
