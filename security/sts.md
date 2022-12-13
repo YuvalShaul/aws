@@ -10,4 +10,7 @@
 
 - Who is using aws?  
 **aws sts get-caller-identity**
-- 
+- What is the account of this access key id?  
+**aws sts get-access-key-info --access-key-id \<value\>**
+- Assuming a role (and getting credentials and security token):  
+**aws sts assume-role --role-arn arn:aws:iam::647000152682:role/S3-master  --role-session-name s3-work**
