@@ -14,4 +14,5 @@
 **aws configure**
 - Follow the instructions.  
 (you should choose a regions like us-east-1, and a preffered output format: json/yaml)
-- Edit ~/.aws/credentials to see the results
+- Edit ~/.aws/credentials to see the results  
+(in the case of a docker container, ~ is going to be /root directory)
