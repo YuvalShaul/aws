@@ -11,4 +11,3 @@ RUN apt-get install less
 RUN npm init -y
 RUN npm install aws-sdk 
 CMD ["/bin/bash"]
-
