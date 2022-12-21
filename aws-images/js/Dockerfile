@@ -10,5 +10,5 @@ RUN apt-get install nano
 RUN apt-get install less
 RUN npm init -y
 RUN npm install aws-sdk 
-CMD ["node"]
+CMD ["/bin/bash"]
 
