@@ -27,7 +27,10 @@ No IPv6 CIDR block for this session
 
 ## Create Subents
 
-- Create 4 subnets:
+- Create 4 subnets.
+- Note that each subnet resides within ONE AZ  
+(but multiple subnets may reside within a single AZ)
+- Details:
   - pubA1  (10.0.0.0/24)  (vpcA, public subnet 1) in us-east-1a
   - privA1 (10.0.1.0/24)  (vpcA, private subnet 1)  in us-east-1a
   - pubA2  (10.0.2.0/24)  (vpcA, public subnet 2)  in us-east-1b
@@ -46,12 +49,68 @@ Create 2 new routing tables:
 
 Now attach those to the correct subnets:  
 
-- privA-RT to privA1
-- privA-RT to privA2
-- pubA-RT  to pubA1
-- pubA-RT  to pubA2
+- privA-RT to privA1 and privA2
+- pubA-RT  to pubA1  and pubA2
 
 ## Fix Public Routing Tables
 
 Add default routes to public routing tables:
-- 
+- Create a new internet gateway called **vpcA-IGW**
+- Attach the IGW to vpcA
+- Add a defult route to this IGW:
+  - only in the single public route table
+  - 0.0.0.0/0  pointing to the IGW
+**note: this is what make the subnets associated with this RT public!**
+
+## Create an Instace in a public subnet
+
+We can connect to this one using SSH from the global Internet.  
+
+- Name:  **pubA1-EC2**
+- Details: AMI2, t2-micro
+- Edit networking: choose subnet pubA1
+- External IP address: enabled
+- key-pair: either create a new one, or use an existing one
+- Security group:  Create a new one called **ssh-only**, that allows only SSH protocol (TCP port 22)  
+
+Launch your instance and make sure you can connect to it: 
+exalple (change to your key-pair value and correct external IP address):   
+**ssh -i ~/.ssh/awsKP.pem ec2-user@52.7.123.220**
+
+
+You should be able to login into the instance
+
+##  An instance in a private subnet
+
+- Create an instance in subnet **privA1** called **privA1-EC2**
+  - NO EXTERNAL IP ADDRESS
+  - Same key-pair, security group
+  - make sure you edit the networking and put it on the correct subnet (privA1)
+  - You could connect to this one from the public instance:
+    - copy your key-pair from your host to pubA1-EC2:  
+    Example (change IP address and name of key-pair file):  
+    **scp -i ~/.ssh/awsKP.pem  ~/.ssh/awsKP.pem ec2-user@52.7.123.220:/home/ec2-user/.ssh**
+    - connect to pubA1-EC2 and from there to privA1-EC2 (using the private IP address).  
+    Example:  
+    **ssh -i ~/.ssh/awsKP.pem  ec2-user@10.0.1.91**
+
+## Nat Gateway
+
+Your new, private instance is not connected to the internet at all.  
+We can connect it in a way that'l allow it to download software and updates.  
+It will still not be able to directly connect to it fron the global Internet.  
+We'll use a NAT Gateway for that.
+
+- Create a new Nat Gateway called **vpcA-NGW**
+- Make sure you put it in a **public subnet**, it our case:  **pubA1**
+- Allocate a new ellastic IP address for it
+- It may take some time until it is available to use (it goes to Available state)
+- To use it, add a default route poing to it in the **private route table (privA-RT)
+- After doing that, try to see if the private instance can update some software:  
+  - **sudo yum update**
+  - **sudo yum install httpd**  
+  (not that this is going to be usefull)
+
+
+Hope you enjoyed this one!
+
