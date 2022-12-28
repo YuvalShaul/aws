@@ -11,6 +11,7 @@ A VPC exercise, to create your entire VPC, that invludes:
 
 ## Create the VPC
 
+**Make sure that you are in us-east-1 (N. Virginia) region**
 - fast pace:  
 Create a VPC called **vpcA**, with IPv4 CIDR:  10.0.0.0/16 (no IPv6)
 
