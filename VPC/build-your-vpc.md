@@ -43,7 +43,9 @@ Create 2 new routing tables:
 - pubA-RT
 - privA-RT
 (the **A** here reserves these route tables for vpcA)
-Now attach those to the correct subnets:
+
+Now attach those to the correct subnets:  
+
 - privA-RT to privA1
 - privA-RT to privA2
 - pubA-RT  to pubA1
