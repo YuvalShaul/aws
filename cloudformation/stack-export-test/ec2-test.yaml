@@ -1,0 +1,13 @@
+Description: A single ec2 instance
+
+
+Resources:
+  EC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: "ami-09d3b3274b6c5d4aa"
+      KeyName: "yuvKP"
+      NetworkInterfaces: 
+      - AssociatePublicIpAddress: "true"
+        DeviceIndex: "0"
+        SubnetId: !ImportValue  'Subnet1Export'
