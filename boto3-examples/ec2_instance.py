@@ -15,8 +15,8 @@ def create_instance():
                                       region_name=creds['region'])
     instances = ec2_resource.create_instances(
         ImageId="ami-0b5eea76982371e91",
-        MinCount=1,
-        MaxCount=1,
+        MinCount=2,
+        MaxCount=3,
         InstanceType="t2.micro",
         KeyName="yuvKP")
     return instances
@@ -26,7 +26,6 @@ def demo_ec2():
     instances = create_instance()
     inst = instances[0]
     print("id:", inst.id)
-    print()
 
 
 demo_ec2()
