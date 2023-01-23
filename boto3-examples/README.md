@@ -20,6 +20,11 @@ The famous aws python sdk library.
 ## Creating a json credentials file
 
 - Use **cred.json** to be compatible with this repository
-- You can create this file by simply running:  
-**aws sts get-caller-identity** and embedding the output into the file.
-
+- Here's an example:
+```
+{
+    "access_key_id": ".....",
+    "secret_access_key": "....", 
+    "region": "us-east-1"
+}
+```
