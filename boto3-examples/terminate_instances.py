@@ -19,7 +19,10 @@ def get_all_instances_iterator():
 def demo_ec2():
     ec2_client = boto3.client('ec2')
     instances_iterator = get_all_instances_iterator()
-    for inst in instances_iterator:
-        print(inst.id, inst.state["Name"])
+    # for inst in instances_iterator:
+    #     print(inst.id, inst.state["Name"])
+    ids = [inst.id for inst in instances_iterator]
+    response = ec2_client.terminate_instances(InstanceIds=ids)
+
 
 demo_ec2()
