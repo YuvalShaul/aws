@@ -22,8 +22,11 @@ def create_instance():
     return instances
 
 
+def demo_ec2():
+    instances = create_instance()
+    inst = instances[0]
+    print("id:", inst.id)
+    print()
 
-instances = create_instance()
-print(instances[0].id)
 
-
+demo_ec2()
