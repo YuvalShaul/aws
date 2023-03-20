@@ -40,7 +40,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: subnet1
+          Value: pub-subnet
 
   Priv1Subnet:
     Type: AWS::EC2::Subnet
