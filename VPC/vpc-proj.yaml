@@ -1,0 +1,188 @@
+Description:  A VPC used for project demonstrations
+
+Parameters:
+
+  ProjVpcCIDR:
+    Description: Please enter the IP range (CIDR notation) for this VPC
+    Type: String
+    Default: 10.10.0.0/16
+    
+  PubSubnetCIDR:
+    Type: String
+    Default: 10.10.1.0/24
+
+  Priv1SubnetCIDR:
+    Type: String
+    Default: 10.10.11.0/24
+
+  Priv2SubnetCIDR:
+    Type: String
+    Default: 10.10.12.0/24
+
+
+Resources:
+
+  ProjVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref ProjVpcCIDR
+      Tags:
+        - Key: Name
+          Value: vpc-proj
+
+# Subnets 
+
+  PubSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ProjVPC
+      CidrBlock: !Ref PubSubnetCIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: subnet1
+
+  Priv1Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ProjVPC
+      CidrBlock: !Ref Priv1SubnetCIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: priv1-subnet
+
+  Priv2Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ProjVPC
+      CidrBlock: !Ref Priv2SubnetCIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: priv2-subnet
+
+# Gateways and GW attachments
+
+  projInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: projIGW
+
+  AttachIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+         Ref: ProjVPC
+      InternetGatewayId:
+         Ref: projInternetGateway
+
+  NATGatewayEIP:
+   Type: AWS::EC2::EIP
+   Properties:
+      Domain: vpc
+
+  NATGateway:
+   Type: AWS::EC2::NatGateway
+   Properties:
+      AllocationId: !GetAtt NATGatewayEIP.AllocationId
+      SubnetId: !Ref PubSubnet
+
+# Route Tables
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: ProjVPC
+      Tags:
+      - Key: Name
+        Value: publicRTproj
+
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: ProjVPC
+      Tags:
+      - Key: Name
+        Value: privateRTproj
+
+
+#   RT Associations
+  publicRTassociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PubSubnet
+      RouteTableId:
+        Ref: PublicRouteTable
+
+  priv1RTassociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: Priv1Subnet
+      RouteTableId:
+        Ref: PrivateRouteTable
+
+  prib2RTassociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: Priv2Subnet
+      RouteTableId:
+        Ref: PrivateRouteTable
+
+# Routes
+
+  defaultInternetRoute:
+    Type: AWS::EC2::Route
+    DependsOn: projInternetGateway
+    Properties:
+       RouteTableId:
+         Ref: PublicRouteTable
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId:
+         Ref: projInternetGateway
+
+  defaultNATRoute:
+    Type: AWS::EC2::Route
+    DependsOn: NATGateway
+    Properties:
+       RouteTableId:
+         Ref: PrivateRouteTable
+       DestinationCidrBlock: 0.0.0.0/0
+       NatGatewayId:
+         Ref: NATGateway
+
+
+Outputs:
+  ProjVPCOut:
+    Description: A reference to ProjVPC
+    Value: !Ref ProjVPC
+    Export: 
+      Name: ProjVPC
+
+
+  PubSubnetOut:
+    Description: A reference to the subnet 
+    Value: !Ref PubSubnet
+    Export: 
+      Name: PubSubnet
+
+  Priv1SubnetOut:
+    Description: A reference to the subnet 
+    Value: !Ref Priv1Subnet
+    Export: 
+      Name: Priv1Subnet
+
+  Priv2SubnetOut:
+    Description: A reference to the subnet 
+    Value: !Ref Priv2Subnet
+    Export: 
+      Name: Priv2Subnet
+
+
