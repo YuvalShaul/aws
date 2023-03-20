@@ -26,5 +26,9 @@ Note the following:
   
 ## Security
 
+- Create a Security Group called **proxySG** that will be used to permit public access to the proxy that will run inside the public subnet.  
+(no rules yet)
+- Create a Security Group called **serverSG** that will be used to permit private access from the proxy (in the public subnet) to the server running inside a private subnet.  
+(no rules yet)
 
 
