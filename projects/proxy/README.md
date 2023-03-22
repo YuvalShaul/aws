@@ -28,7 +28,61 @@ Note the following:
 
 - Create a Security Group called **proxySG** that will be used to permit public access to the proxy that will run inside the public subnet.  
 (no rules yet)
+  - add ports 22(ssh) 
+  - add 80  (http)
+  - add 8081 (custom tcp)
 - Create a Security Group called **serverSG** that will be used to permit private access from the proxy (in the public subnet) to the server running inside a private subnet.  
-(no rules yet)
+  - add ports 22(ssh)
+  - add 80  (http)
+  - add 8081 (custom tcp)
 
+
+# Proxy EC2 Instance
+
+- Create a new EC2 instance in the public subnet:
+  - name:  proxyEC2
+    - Network settings:  choose the public subnet
+    - Security Group: proxySG
+- Connect to the instance (ssh) and install docker:  
+  - **sudo yum install docker**
+  - **sudo usermod -a -G docker ec2-user**
+  - **newgrp docker**
+  - **sudo systemctl enable docker.service**
+  - **sudo systemctl start docker.service**
+- Pull the proxy image:  
+**docker pull nissimo/arinetaawsproxyapp:latest**
+- Run a container:  
+**docker run -d -p 8081:80 nissimo/arinetaawsproxyapp:latest**  
+(the proxy listens by default to port 8081)
+- Browse into the proxy:  
+**http://\<ip address of host\>:8081**
+- You can exec into the container:  
+**docker exec -it \<container name\> /bin/bash**
+
+# Server EC2 Instance
+
+  - name serverEC2
+    - Network settings: choose priv1-subnet
+    - Security Group: serverSG
+
+  - Login into proxyEC2 and from there into serverEC2:
+    - copy your private key into the the proxy (see example):  
+    **scp -i .ssh/yuvKP.pem /home/yuval/.ssh/yuvKP.pem   ec2-user@52.0.144.95:/home/ec2-user/.ssh**
+    - ssh into the proxy
+    - ssh into the server using the private IP address
+  - Install docker:  
+  - **sudo yum install docker**
+  - **sudo usermod -a -G docker ec2-user**
+  - **newgrp docker**
+  - **sudo systemctl enable docker.service**
+  - **sudo systemctl start docker.service**
+  - Pull the proxy image:  
+**docker pull nissimo/arinetaawsapp:latest**
+  - Run a container:  
+  **docker run -d -p 8081:8081 nissimo/arinetaawsapp:latest**
+
+# Try out the API
+
+Use the following to try the app:  
+**http://\<proxy IP address \>/swagger/index.html**
 
