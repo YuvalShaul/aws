@@ -36,6 +36,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref ProjVPC
+      AvailabilityZone : "us-east-1a"
       CidrBlock: !Ref PubSubnetCIDR
       MapPublicIpOnLaunch: true
       Tags:
@@ -46,8 +47,9 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref ProjVPC
+      AvailabilityZone : "us-east-1a"
       CidrBlock: !Ref Priv1SubnetCIDR
-      MapPublicIpOnLaunch: true
+      MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
           Value: priv1-subnet
@@ -57,7 +59,8 @@ Resources:
     Properties:
       VpcId: !Ref ProjVPC
       CidrBlock: !Ref Priv2SubnetCIDR
-      MapPublicIpOnLaunch: true
+      AvailabilityZone : "us-east-1b"
+      MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
           Value: priv2-subnet
