@@ -57,6 +57,9 @@ Note the following:
 **http://\<ip address of host\>:8081/swagger/index.html**
 - You can exec into the container:  
 **docker exec -it \<container name\> /bin/bash**
+- You should configure the server address and port number.  
+It should point to the server.  
+(the file is called: appsettings,json)
 
 # Server EC2 Instance
 
