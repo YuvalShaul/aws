@@ -27,14 +27,11 @@ Note the following:
 ## Security
 
 - Create a Security Group called **proxySG** that will be used to permit public access to the proxy that will run inside the public subnet.  
-(no rules yet)
   - add ports 22(ssh) 
-  - add 80  (http)
   - add 8081 (custom tcp)
 - Create a Security Group called **serverSG** that will be used to permit private access from the proxy (in the public subnet) to the server running inside a private subnet.  
   - add ports 22(ssh)
-  - add 80  (http)
-  - add 8081 (custom tcp)
+  - add 9000 (custom tcp)
 
 
 # Proxy EC2 Instance
@@ -79,7 +76,7 @@ Note the following:
   - Pull the proxy image:  
 **docker pull nissimo/arinetaawsapp:latest**
   - Run a container:  
-  **docker run -d -p 8081:8081 nissimo/arinetaawsapp:latest**
+  **docker run -d -p 9000:80 nissimo/arinetaawsapp:latest**
 
 # Try out the API
 
