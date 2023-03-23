@@ -41,6 +41,8 @@ Note the following:
     - Network settings:  choose the public subnet
     - Security Group: proxySG
 - Connect to the instance (ssh) and install docker:  
+**ssh -i .ssh/\<pemfile.pem\>  ec2-user@\<ip address of proxy \>**
+- Configure:
   - **sudo yum install docker**
   - **sudo usermod -a -G docker ec2-user**
   - **newgrp docker**
