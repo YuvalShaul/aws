@@ -54,7 +54,7 @@ Note the following:
 **docker run -d -p 8081:80 nissimo/arinetaawsproxyapp:latest**  
 (the proxy listens by default to port 8081)
 - Browse into the proxy:  
-**http://\<ip address of host\>:8081**
+**http://\<ip address of host\>:8081/swagger/index.html**
 - You can exec into the container:  
 **docker exec -it \<container name\> /bin/bash**
 
