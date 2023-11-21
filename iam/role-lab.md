@@ -1,10 +1,9 @@
 # Role Lab
 
 In this lab we are going to do the following:
-- create a user with some permissions
-- create a role
-- try to assume role (and fail)
-- add permission to assume the role
+- create a user with full ec2 permissions
+- create a role with a trust policy that enables that user
+- try to assume role from a different user (and fail)
 - now assume and check that new priviledges are there
 
 ## Create a user
@@ -17,9 +16,10 @@ In this lab we are going to do the following:
 
 - Create a role called **ec2-closer**, such that:
   - only Clara can assume this role (so use **Custom trust policy**)
-  - Create your own policy for the role called **ec2-closer-policy** with these 2 allowed operations:
+  - Create your own policy for the role called **ec2-closer-policy** with these 3 allowed operations:
     - StopInstances
     - TerminateInstances
+    - DescribeInstances
   - Add this policy to the role
 
 
