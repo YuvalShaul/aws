@@ -26,6 +26,10 @@ yum install -y docker
 ```
 - Later on, when you instance is available, you could see the user data like this:  
 ```
-curl http://169.254.169.254/latest/user-data
+#first get the token if you don't have it yet:
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+#then get the user-data:
+curl curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/user-data
 ```
-- You may have to log out and log in again, so that the script has enough time to install.
+- You may have to log out and log in again, so that the script has enough time to install.  
+Then check if these tools are installed
