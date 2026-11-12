@@ -1,4 +1,10 @@
-# Basic Configuration
+# AWS CLI: Installation and Configuration
+
+## Install
+
+- Follow the [installation instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for your system.
+- Check it:  
+**aws --version**
 
 ## Prerequisites
 

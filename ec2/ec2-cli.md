@@ -1,14 +1,7 @@
-#AWS Command Line Interface (CLI)
+# EC2 from the AWS CLI
 
-# Install
+The CLI is installed and configured in [01-cloud-and-account](../01-cloud-and-account/cli-configuration.md).
 
-See instructions [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-
-## Configuration
-
-See [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config).
-
-# EC2
 
 - List (and describe) AMI images:  
 **aws ec2 describe-images**  
