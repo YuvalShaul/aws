@@ -7,6 +7,3 @@ Session 1 of the course. The course's pages are at [yuval.guide/aws](https://www
 - [IAM from the CLI](iam-cli.md): users, groups, policies
 - [STS](sts.md): who am I, temporary credentials, assuming a role
 - [boto3](boto3/): the same IAM calls from Python, credentials taken from the CLI's configuration
-- Labs:
-  - [Custom policy lab](custom-policy-lab.md): an identity-based policy for a user with no permissions
-  - [Role lab](role-lab.md): a role only one user may assume
