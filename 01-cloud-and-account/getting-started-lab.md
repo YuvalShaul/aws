@@ -11,7 +11,7 @@ on yuval.guide, which shows every screen of it.
 <details>
 <summary>Option 1: you have no AWS account</summary>
 
-1. Follow the guide's step [Open an AWS account](https://www.yuval.guide/aws/01-cloud-and-account/aws-getting-started/#open-an-aws-account).
+1. Follow the guide's step [Open an AWS account](https://www.yuval.guide/aws/01-cloud-and-account/aws-getting-started/?s=open-account).
 2. Wait for AWS's email saying the account is active.
 
 </details>
@@ -26,7 +26,7 @@ on yuval.guide, which shows every screen of it.
 
 ## Sign in as the root user
 
-1. Follow the guide's step [Sign in as the root user](https://www.yuval.guide/aws/01-cloud-and-account/aws-getting-started/#sign-in-as-the-root-user).
+1. Follow the guide's step [Sign in as the root user](https://www.yuval.guide/aws/01-cloud-and-account/aws-getting-started/?s=sign-in).
 
 ## Check the console
 
