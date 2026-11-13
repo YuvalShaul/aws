@@ -2,6 +2,7 @@
 
 Session 1 of the course. The course's pages are at [yuval.guide/aws](https://www.yuval.guide/aws/aws-top/).
 
+- [Lab: Getting Started with AWS](getting-started-lab.md): open an account and sign in to the console
 - [Global infrastructure](global-infrastructure.md): Regions, Availability Zones, Local Zones
 - [AWS CLI: installation and configuration](cli-configuration.md)
 - [IAM from the CLI](iam-cli.md): users, groups, policies
